@@ -1,1 +1,1 @@
-# Lightweight Benchmarking and Evaluation of LLMs
+# Lightweight LLM Benchmarking and Evaluation
