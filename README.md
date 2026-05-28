@@ -13,3 +13,5 @@ For each provider, only the model meeting these criteria with the highest LLM St
 - DeepSeek R1 Distill Qwen 1.5B
 - Gemma 3 4B
 - Llama 3.2 3B Instruct
+
+I also included IBM's Granite-3.3-2B-Instruct, which is another small model appearing in many of my searches but seems to have not yet been added to the LLM Stats Open LLM Leaderboard.
