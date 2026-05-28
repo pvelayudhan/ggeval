@@ -1,0 +1,16 @@
+The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`.
+The dataframe is named `penguins`.
+It has the following factor columns: species, island, sex.
+It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year.
+Using the ggplot2 library, construct a boxplot plot with species on the x-axis and bill_length_mm on the y-axis.
+
+```{r}
+library(ggplot2)
+library(palmerpenguins)
+
+ggplot(
+    penguins,
+    aes(x = species, y = bill_length_mm)
+) + 
+    geom_boxplot()
+```
