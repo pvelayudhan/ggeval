@@ -1,4 +1,4 @@
-# Lightweight LLM Benchmarking and Evaluation
+# ggbench: Evaluating SLMs on ggplot2
 
 ## Model selection
 

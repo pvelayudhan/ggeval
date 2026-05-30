@@ -10,7 +10,7 @@ MODEL_CONFIGS = {
     }
 }
 
-class ModelWrapper:
+class ModelRunner:
     def __init__(self, model_name):
         self.model_name = model_name
         config = MODEL_CONFIGS.get(model_name, {})
@@ -40,7 +40,7 @@ class ModelWrapper:
     def _strip_fences(self, text):
         return re.sub(r"```[rR]?", "", text).strip()
 
-    def generate(self, prompt, max_new_tokens=20):
+    def generate(self, prompt, max_new_tokens=512):
         messages = [{"role": "user", "content": prompt}]
         inputs = self.tokenizer.apply_chat_template(
             messages,
@@ -58,7 +58,11 @@ class ModelWrapper:
         end = time.time()
 
         new_tokens = outputs[0][inputs["input_ids"].shape[-1]:]
-        response = self.tokenizer.decode(new_tokens, skip_special_tokens=True)
-        #response = self._strip_thinking(response)
-        #response = self._strip_fences(response)
-        return {"response": response, "latency": end - start}
+        response1 = self.tokenizer.decode(new_tokens, skip_special_tokens=True)
+        response2 = self._strip_thinking(response1)
+        response2 = self._strip_fences(response2)
+        return {
+            "response-raw": response1,
+            "response-parsed": response2,
+            "latency": end - start
+        }

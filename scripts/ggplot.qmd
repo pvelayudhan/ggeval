@@ -2,15 +2,64 @@ The palmerpenguins dataframe can be made available in R by calling `library(palm
 The dataframe is named `penguins`.
 It has the following factor columns: species, island, sex.
 It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year.
-Using the ggplot2 library, construct a boxplot plot with species on the x-axis and bill_length_mm on the y-axis.
+Using the ggplot2 library, construct a boxplot plot named `myplot` with species on the x-axis and bill_length_mm on the y-axis.
+Do not add any additional elements to the plot.
+Respond with code only; no explanation.
+Do not re-iterate your objective or state anything about your reasoning process.
 
 ```{r}
+
 library(ggplot2)
 library(palmerpenguins)
 
-ggplot(
-    penguins,
-    aes(x = species, y = bill_length_mm)
-) + 
+myplot <-
+    ggplot(penguins, aes(x = species, y = bill_length_mm)) + 
     geom_boxplot()
+
+right1 <-
+    ggplot(penguins, aes(x = species, y = bill_length_mm)) + 
+    geom_boxplot()
+
+wrong1 <-
+    ggplot(penguins, aes(x = species, y = bill_length_mm)) + 
+    geom_boxplot() +
+    geom_point()
+
+wrong2 <-
+    ggplot(penguins, aes(x = species, y = bill_length_mm)) + 
+    geom_boxplot() +
+    geom_point() +
+    labs(x = "Species")
+
+ggplot_build(myplot)$data
+ggplot_build(right1)$data
+ggplot_build(wrong1)$data
+waldo::compare(right1@layers, myplot@layers)
+all.equal(myplot@scales$'super', wrong1@scales$'super')
+myplot@layers
+wrong1@layers
+
+
+
+all.equal(myplot@scales, wrong1@scales)
+
+myplot@guides
+myplot@mapping
+myplot@theme
+myplot@coordinates
+myplot@facet
+myplot@layout
+myplot@labels
+myplot@meta
+myplot@plot_env
+
+myplot == wrong1
+
+class(myplot)
+
+all(names(myplot@layers) == "geom_boxplot")
+
+str(myplot)
+
+str(plot)
 ```
