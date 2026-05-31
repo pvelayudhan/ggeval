@@ -1,4 +1,4 @@
-from ggbench.model_runner import ModelRunner
+from ggeval.model_runner import ModelRunner
 
 models = {
     "gemma": "google/gemma-3-4b-it",
@@ -33,15 +33,17 @@ Do not re-iterate your objective or state anything about your reasoning process.
 )
 
 print(result["response-raw"])
-
 print('---')
-
 print(result["response-parsed"])
-
 print('---')
-
 print(result["latency"])
 
 def save_r_script(self, response, path):
     with open(path, "w") as f:
         f.write(response)
+
+#model = ModelWrapper("google/gemma-3-4b-it")
+#evaluator = Evaluator()
+#logger = ResultsLogger()
+#benchmark = Benchmark(model, evaluator, logger)
+#benchmark.run()

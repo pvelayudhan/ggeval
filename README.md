@@ -1,4 +1,4 @@
-# ggbench: Evaluating SLMs on ggplot2
+# ggeval: Evaluating SLMs on ggplot2
 
 ## Model selection
 
