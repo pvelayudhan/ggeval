@@ -1,0 +1,11 @@
+library(ggplot2)
+library(palmerpenguins)
+set.seed(42)
+ggplot(penguins, aes(x = species, y = bill_length_mm)) + geom_boxplot()
+built_answer <- ggplot_build(last_plot())
+set.seed(42)
+ggplot(data = penguins, aes(x = species, y = bill_length_mm)) +
+  geom_boxplot()
+built_submission <- ggplot_build(last_plot())
+source("evaluator.R")
+evaluate(built_answer, built_submission)

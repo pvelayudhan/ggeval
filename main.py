@@ -1,4 +1,5 @@
 from ggeval.model_runner import ModelRunner
+import json
 
 models = {
     "gemma": "google/gemma-3-4b-it",
@@ -12,25 +13,55 @@ models = {
 
 # works
 #model = ModelRunner(models["gemma"])
-model = ModelRunner(models["qwen"])
 #model = ModelRunner(models["ministral"])
 #model = ModelRunner(models["r1distill"])
 #model = ModelRunner(models["phi4mini"])
 #model = ModelRunner(models["granite"])
 #model = ModelRunner(models["llama"])
+model = ModelRunner(models["qwen"])
 
-result = model.generate(
+
+with open('ggeval/prompts.json') as f:
+    d = json.load(f)
+
+print(d[0]['id'])
+
+prompt = d[0]['prompt']
+answer = d[0]['answer']
+
+submission = model.generate(prompt)
+
+submission = submission['response-parsed']
+
+answer
+
+r_script = f"""
+library(ggplot2)
+library(palmerpenguins)
+set.seed(42)
+{answer}
+built_answer <- ggplot_build(last_plot())
+set.seed(42)
+{submission}
+built_submission <- ggplot_build(last_plot())
+source("evaluator.R")
+evaluate(built_answer, built_submission)
 """
-The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`.
-The dataframe is named `penguins`.
-It has the following factor columns: species, island, sex.
-It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year.
-The palmerpenguins and ggplot2 libraries have been loaded for you.
-Construct a boxplot plot with species on the x-axis and bill_length_mm on the y-axis.
-Respond with code only; no explanation.
-Do not re-iterate your objective or state anything about your reasoning process.
+
+with open("eval_run.R", "w") as f:
+    f.write(r_script)
+
+
+
 """
-)
+pipeline:
+
+    1. Load model
+    2. Give model the prompt
+    3. Export prompt, response, and answer into evaluation script in R
+    4. ...
+
+"""
 
 print(result["response-raw"])
 print('---')
