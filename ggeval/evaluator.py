@@ -1,4 +1,6 @@
 import subprocess
+import os
+import tempfile
 
 
 class Evaluator:
@@ -7,30 +9,36 @@ class Evaluator:
         self.answer = answer
         self.submission = submission
         self.model_name = model_name
-        self.answer_img = f"figures/{self.prompt_id}_{answer}.png"
+        self.answer_img = f"/sandbox/figures/{self.prompt_id}_answer.png"
         self.submission_img = (
-            f"figures/{self.prompt_id}_{self.model_name}_{submission}.png"
+            f"figures/{self.prompt_id}_{self.model_name}_submission.png"
         )
         self.script_name = (
-            f"scripts/{self.prompt_id}_{self.model_name}_{eval_run}.R"
+            f"scripts/{self.prompt_id}_{self.model_name}_eval_run.R"
         )
 
     def export_eval_script(self):
         r_script = f"""
+            print(getwd())
+            print(file.access("/sandbox/figures", 2))
             library(ggplot2)
             library(palmerpenguins)
             built_answer <- tryCatch(
                 {{
                     set.seed(42)
-                    {self.answer}
-                    suppressWarnings(
+
+{self.answer}
+
+                    #suppressWarnings(
                         ggsave(
                             width = 3,
                             height = 3,
-                            "{answer_img}"
+                            "{self.answer_img}"
                         )
-                    )
-                    suppressWarnings(ggplot_build(last_plot()))
+                    #)
+                    #suppressWarnings(
+                        ggplot_build(last_plot())
+                    #)
                 }},
                 error = function(e) {{
                     FALSE
@@ -39,15 +47,19 @@ class Evaluator:
             built_submission <- tryCatch(
                 {{
                     set.seed(42)
-                    {self.submission}
-                    suppressWarnings(
+
+{self.submission}
+
+                    #suppressWarnings(
                         ggsave(
                             width = 3,
                             height = 3,
-                            "{submission_img}"
+                            "{self.submission_img}"
                         )
-                    )
-                    suppressWarnings(ggplot_build(last_plot()))
+                    #)
+                    #suppressWarnings(
+                        ggplot_build(last_plot())
+                    #)
                 }},
                 error = function(e) {{
                     FALSE
@@ -60,6 +72,7 @@ class Evaluator:
             f.write(r_script)
 
     def run_eval_script(self):
+        print("Running evaluation2...")
         result = subprocess.run(
             [
                 "podman", "run",
@@ -67,14 +80,14 @@ class Evaluator:
                 "--network", "none", # don't enable network connectivity
                 "--memory", "512m",
                 "--cpus", "1",
-                "--read-only",
                 "--tmpfs", "/tmp",
-                "--volume", f"{tmpdir}:/sandbox:ro",
-                "--volume", f"{evaluator_path}:/sandbox/evaluator.R:ro",
+                "--volume", f"{os.path.abspath('scripts')}:/sandbox/scripts:ro",
+                "--volume", f"{os.path.abspath('figures')}:/sandbox/figures:rw",
                 "r-eval", # image name
-                "Rscript", self.script_name # command
+                "Rscript", f"/sandbox/scripts/{os.path.basename(self.script_name)}" # command
             ],
             capture_output=True,
             text=True,
             timeout=30
         )
+        return(result)
