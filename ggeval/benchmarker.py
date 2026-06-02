@@ -19,10 +19,10 @@ class Benchmarker:
                 submission = model.generate(prompt_text)['response-parsed']
                 latency = model.generate(prompt_text)['latency']
                 evaluator = Evaluator(
-                    prompt['prompt_id'],
-                    prompt['answer'],
-                    submission,
-                    model_name
+                    prompt_id=prompt['id'],
+                    answer=prompt['answer'],
+                    submission=submission,
+                    model_name=model_name
                 )
                 evaluator.export_eval_script()
                 result = evaluator.run_eval_script()

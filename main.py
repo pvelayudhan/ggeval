@@ -1,4 +1,3 @@
-from ggeval.model_runner import ModelRunner
 from ggeval.benchmarker import Benchmarker
 import json
 
@@ -19,24 +18,5 @@ models = {
     "qwen": "Qwen/Qwen2.5-1.5B-Instruct"
 }
 
-
-
-
 benchmarker = Benchmarker(models, prompt_data)
 benchmarker.benchmark()
-
-model_name = "qwen"
-model = ModelRunner(models[model_name])
-
-prompt     = prompt_data[0]['prompt']
-prompt_id  = prompt_data[0]['id']
-answer     = prompt_data[0]['answer']
-
-submission = model.generate(prompt)['response-parsed']
-
-from ggeval.evaluator import Evaluator
-evaluator = Evaluator(prompt_id, answer, submission, model_name)
-evaluator.export_eval_script()
-evaluator.run_eval_script()
-
-
