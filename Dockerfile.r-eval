@@ -1,0 +1,7 @@
+FROM r-base:4.4.0
+
+RUN Rscript -e "install.packages(c('ggplot2', 'palmerpenguins', 'jsonlite'), repos='https://cloud.r-project.org')"
+
+RUN useradd -m sandbox
+USER sandbox
+WORKDIR /sandbox

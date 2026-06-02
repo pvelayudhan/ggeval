@@ -11,45 +11,51 @@ models = {
     "llama": "meta-llama/Llama-3.2-3B-Instruct"
 }
 
-# works
-#model = ModelRunner(models["gemma"])
-#model = ModelRunner(models["ministral"])
-#model = ModelRunner(models["r1distill"])
-#model = ModelRunner(models["phi4mini"])
-#model = ModelRunner(models["granite"])
-#model = ModelRunner(models["llama"])
-model = ModelRunner(models["qwen"])
+model_name = "qwen"
 
+model = ModelRunner(models[model_name])
 
 with open('ggeval/prompts.json') as f:
     d = json.load(f)
 
-print(d[0]['id'])
+prompt     = d[0]['prompt']
+prompt_id  = d[0]['id']
+answer     = d[0]['answer']
+submission = model.generate(prompt)['response-parsed']
 
-prompt = d[0]['prompt']
-answer = d[0]['answer']
+#script_name = prompt_id + "_" + model_name + "_eval_run.R"
 
-submission = model.generate(prompt)
+#r_script = f"""
+#    library(ggplot2)
+#    library(palmerpenguins)
+#    built_answer <- tryCatch(
+#        {{
+#            set.seed(42)
+#            {answer}
+#            suppressWarnings(ggsave(width = 3, height = 3, "figures/{prompt_id}_answer.png"))
+#            suppressWarnings(ggplot_build(last_plot()))
+#        }},
+#        error = function(e) {{
+#            FALSE
+#        }}
+#    )
+#    built_submission <- tryCatch(
+#        {{
+#            set.seed(42)
+#            {submission}
+#            suppressWarnings(ggsave(width = 3, height = 3, "figures/{prompt_id}_{model_name}_submission.png"))
+#            suppressWarnings(ggplot_build(last_plot()))
+#        }},
+#        error = function(e) {{
+#            FALSE
+#        }}
+#    )
+#    print(isTRUE(all.equal(built_answer, built_submission)))
+#"""
 
-submission = submission['response-parsed']
+#with open((f"scripts/{script_name}"), "w") as f:
+#    f.write(r_script)
 
-answer
-
-r_script = f"""
-library(ggplot2)
-library(palmerpenguins)
-set.seed(42)
-{answer}
-built_answer <- ggplot_build(last_plot())
-set.seed(42)
-{submission}
-built_submission <- ggplot_build(last_plot())
-source("evaluator.R")
-evaluate(built_answer, built_submission)
-"""
-
-with open("eval_run.R", "w") as f:
-    f.write(r_script)
 
 
 
@@ -62,19 +68,3 @@ pipeline:
     4. ...
 
 """
-
-print(result["response-raw"])
-print('---')
-print(result["response-parsed"])
-print('---')
-print(result["latency"])
-
-def save_r_script(self, response, path):
-    with open(path, "w") as f:
-        f.write(response)
-
-#model = ModelWrapper("google/gemma-3-4b-it")
-#evaluator = Evaluator()
-#logger = ResultsLogger()
-#benchmark = Benchmark(model, evaluator, logger)
-#benchmark.run()
