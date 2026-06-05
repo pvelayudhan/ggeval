@@ -11,10 +11,10 @@ class Evaluator:
         self.model_name = model_name
         self.answer_img = f"/sandbox/figures/{self.prompt_id}_answer.png"
         self.submission_img = (
-            f"figures/{self.prompt_id}_{self.model_name}_submission.png"
+            f"figures/{self.prompt_id}_submission_{self.model_name}.png"
         )
         self.script_name = (
-            f"scripts/{self.prompt_id}_{self.model_name}_eval_run.R"
+            f"scripts/{self.prompt_id}_eval_run_{self.model_name}.R"
         )
 
     def export_eval_script(self):
@@ -68,7 +68,7 @@ class Evaluator:
             f.write(r_script)
 
     def run_eval_script(self):
-        print("Running evaluation2...")
+        print("Running evaluation...")
         result = subprocess.run(
             [
                 "podman", "run",
@@ -88,4 +88,4 @@ class Evaluator:
             text=True,
             timeout=30
         )
-        return(result.stdout)
+        return(result.stdout == 'TRUE')
