@@ -4,6 +4,7 @@ import time
 import re
 import cohere
 from google import genai
+from google.genai import types
 
 MODEL_CONFIGS = {
     "mistralai/Ministral-3-3B-Reasoning-2512": {
@@ -11,6 +12,7 @@ MODEL_CONFIGS = {
         "tokenizer_class": "MistralCommonBackend",
     }
 }
+
 
 class ModelRunner:
     def __init__(self, model_name):
@@ -20,25 +22,27 @@ class ModelRunner:
 
         if self.model_name == "command-a-plus-05-2026":
             pass
-        elif self.model_name == "gemini-3.5-flash":
+        elif self.model_name.startswith("gemini"):
             pass
         else:
             if config.get("tokenizer_class") == "MistralCommonBackend":
                 from transformers import MistralCommonBackend
-                self.tokenizer = MistralCommonBackend.from_pretrained(model_name)
+
+                self.tokenizer = MistralCommonBackend.from_pretrained(
+                    model_name
+                )
             else:
                 self.tokenizer = AutoTokenizer.from_pretrained(model_name)
 
             if config.get("model_class") == "Mistral3ForConditionalGeneration":
                 from transformers import Mistral3ForConditionalGeneration
+
                 self.model = Mistral3ForConditionalGeneration.from_pretrained(
-                    model_name,
-                    dtype="auto"
+                    model_name, dtype="auto"
                 )
             else:
                 self.model = AutoModelForCausalLM.from_pretrained(
-                    model_name,
-                    dtype="auto"
+                    model_name, dtype="auto"
                 )
 
     def _strip_thinking(self, text):
@@ -52,46 +56,47 @@ class ModelRunner:
 
         if self.model_name == "command-a-plus-05-2026":
             co = cohere.ClientV2()
-            response = co.chat(
-                model="command-a-plus-05-2026",
-                messages=messages
-            )
+            response = co.chat(model=self.model_name, messages=messages)
             response1 = next(
                 (
-                    block.text for block in response.message.content
+                    block.text
+                    for block in response.message.content
                     if block.type == "text"
                 ),
-                ""
+                "",
             )
             latency = 0
-            time.sleep(10) # sleep for API model
-        elif self.model_name == "gemini-3.5-flash":
+            time.sleep(10)  # sleep for API model
+        elif self.model_name.startswith("gemini"):
             client = genai.Client()
             response1 = client.models.generate_content(
-                model="gemini-3.5-flash",
-                contents="Explain how AI works in a few words"
+                model=self.model_name,
+                contents=[
+                    types.Content(
+                        role=messages[0]["role"],
+                        parts=[types.Part(text=messages[0]["content"])]
+                    )
+                ],
+                config=types.GenerateContentConfig(temperature=0)
             ).text
             latency = 0
-            time.sleep(10) # sleep for API model
+            time.sleep(10)  # sleep for API model
         else:
             inputs = self.tokenizer.apply_chat_template(
                 messages,
                 tokenize=True,
                 add_generation_prompt=True,
-                return_tensors="pt"
+                return_tensors="pt",
             )
             start = time.time()
             with torch.inference_mode():
                 outputs = self.model.generate(
-                    **inputs,
-                    max_new_tokens=max_new_tokens,
-                    do_sample=False
+                    **inputs, max_new_tokens=max_new_tokens, do_sample=False
                 )
             latency = time.time() - start
-            new_tokens = outputs[0][inputs["input_ids"].shape[-1]:]
+            new_tokens = outputs[0][inputs["input_ids"].shape[-1] :]
             response1 = self.tokenizer.decode(
-                new_tokens,
-                skip_special_tokens=True
+                new_tokens, skip_special_tokens=True
             )
 
         response2 = self._strip_thinking(response1)
@@ -100,5 +105,5 @@ class ModelRunner:
         return {
             "response-raw": response1,
             "response-parsed": response2,
-            "latency": latency
+            "latency": latency,
         }
