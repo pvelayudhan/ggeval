@@ -3,6 +3,7 @@ import torch
 import time
 import re
 import cohere
+from google import genai
 
 MODEL_CONFIGS = {
     "mistralai/Ministral-3-3B-Reasoning-2512": {
@@ -18,6 +19,8 @@ class ModelRunner:
         print(f"Loading model: {model_name}")
 
         if self.model_name == "command-a-plus-05-2026":
+            pass
+        elif self.model_name == "gemini-3.5-flash":
             pass
         else:
             if config.get("tokenizer_class") == "MistralCommonBackend":
@@ -60,10 +63,16 @@ class ModelRunner:
                 ),
                 ""
             )
-            response2 = self._strip_thinking(response1)
-            response2 = self._strip_fences(response2)
             latency = 0
-            time.sleep(10)
+            time.sleep(10) # sleep for API model
+        elif self.model_name == "gemini-3.5-flash":
+            client = genai.Client()
+            response1 = client.models.generate_content(
+                model="gemini-3.5-flash",
+                contents="Explain how AI works in a few words"
+            ).text
+            latency = 0
+            time.sleep(10) # sleep for API model
         else:
             inputs = self.tokenizer.apply_chat_template(
                 messages,
@@ -79,11 +88,15 @@ class ModelRunner:
                     do_sample=False
                 )
             latency = time.time() - start
-
             new_tokens = outputs[0][inputs["input_ids"].shape[-1]:]
-            response1 = self.tokenizer.decode(new_tokens, skip_special_tokens=True)
-            response2 = self._strip_thinking(response1)
-            response2 = self._strip_fences(response2)
+            response1 = self.tokenizer.decode(
+                new_tokens,
+                skip_special_tokens=True
+            )
+
+        response2 = self._strip_thinking(response1)
+        response2 = self._strip_fences(response2)
+
         return {
             "response-raw": response1,
             "response-parsed": response2,

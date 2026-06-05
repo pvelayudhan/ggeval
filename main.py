@@ -1,5 +1,4 @@
 from ggeval.benchmarker import Benchmarker
-from ggeval.model_runner import ModelRunner
 
 import json
 
@@ -18,6 +17,10 @@ models = {
 
 models = {
     "command-a-plus": "command-a-plus-05-2026"
+}
+
+models = {
+    "gemini" 
 }
 
 benchmarker = Benchmarker(models, prompt_data)
