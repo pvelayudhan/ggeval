@@ -1,4 +1,6 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import MistralCommonBackend
+from transformers import Mistral3ForConditionalGeneration
 import torch
 import time
 import re
@@ -20,14 +22,12 @@ class ModelRunner:
         config = MODEL_CONFIGS.get(model_name, {})
         print(f"Loading model: {model_name}")
 
-        if self.model_name == "command-a-plus-05-2026":
+        if self.model_name.startswith("command-a-plus"):
             pass
         elif self.model_name.startswith("gemini"):
             pass
         else:
             if config.get("tokenizer_class") == "MistralCommonBackend":
-                from transformers import MistralCommonBackend
-
                 self.tokenizer = MistralCommonBackend.from_pretrained(
                     model_name
                 )
@@ -35,8 +35,6 @@ class ModelRunner:
                 self.tokenizer = AutoTokenizer.from_pretrained(model_name)
 
             if config.get("model_class") == "Mistral3ForConditionalGeneration":
-                from transformers import Mistral3ForConditionalGeneration
-
                 self.model = Mistral3ForConditionalGeneration.from_pretrained(
                     model_name, dtype="auto"
                 )
@@ -54,10 +52,10 @@ class ModelRunner:
     def generate(self, prompt, max_new_tokens=512):
         messages = [{"role": "user", "content": prompt}]
 
-        if self.model_name == "command-a-plus-05-2026":
+        if self.model_name.startswith("command-a-plus"):
             co = cohere.ClientV2()
             response = co.chat(model=self.model_name, messages=messages)
-            response1 = next(
+            response_raw = next(
                 (
                     block.text
                     for block in response.message.content
@@ -69,15 +67,15 @@ class ModelRunner:
             time.sleep(10)  # sleep for API model
         elif self.model_name.startswith("gemini"):
             client = genai.Client()
-            response1 = client.models.generate_content(
+            response_raw = client.models.generate_content(
                 model=self.model_name,
                 contents=[
                     types.Content(
                         role=messages[0]["role"],
-                        parts=[types.Part(text=messages[0]["content"])]
+                        parts=[types.Part(text=messages[0]["content"])],
                     )
                 ],
-                config=types.GenerateContentConfig(temperature=0)
+                config=types.GenerateContentConfig(temperature=0),
             ).text
             latency = 0
             time.sleep(10)  # sleep for API model
@@ -95,15 +93,15 @@ class ModelRunner:
                 )
             latency = time.time() - start
             new_tokens = outputs[0][inputs["input_ids"].shape[-1] :]
-            response1 = self.tokenizer.decode(
+            response_raw = self.tokenizer.decode(
                 new_tokens, skip_special_tokens=True
             )
 
-        response2 = self._strip_thinking(response1)
-        response2 = self._strip_fences(response2)
+        response_parsed = self._strip_thinking(response_raw)
+        response_parsed = self._strip_fences(response_parsed)
 
         return {
-            "response-raw": response1,
-            "response-parsed": response2,
+            "response_raw": response_raw,
+            "response_parsed": response_parsed,
             "latency": latency,
         }

@@ -1,0 +1,197 @@
+[
+    {
+        "id": "bill-length_species_boxplot",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a boxplot plot with species on the x-axis and bill_length_mm on the y-axis. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = species, y = bill_length_mm)) + geom_boxplot()"
+    },
+    {
+        "id": "bill-depth_species_jitter",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a jitter plot with species on the x-axis and bill_depth_mm on the y-axis. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = species, y = bill_depth_mm)) + geom_jitter()"
+    },
+    {
+        "id": "flipper-length_histogram",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a histogram of flipper_length_mm with a binwidth of 5. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = flipper_length_mm)) + geom_histogram(binwidth = 5)"
+    },
+    {
+        "id": "body-mass_species_violin",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a violin plot with species on the x-axis and body_mass_g on the y-axis. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = species, y = body_mass_g)) + geom_violin()"
+    },
+    {
+        "id": "bill-length_bill-depth_scatter",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a scatter plot with bill_length_mm on the x-axis and bill_depth_mm on the y-axis. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) + geom_point()"
+    },
+    {
+        "id": "bill-length_bill-depth_scatter_colour_species",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a scatter plot with bill_length_mm on the x-axis and bill_depth_mm on the y-axis, with points coloured by species. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, colour = species)) + geom_point()"
+    },
+    {
+        "id": "body-mass_flipper-length_scatter_colour_sex_shape_species",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a scatter plot with flipper_length_mm on the x-axis and body_mass_g on the y-axis, with points coloured by sex and shaped by species. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g, colour = sex, shape = species)) + geom_point()"
+    },
+    {
+        "id": "bill-length_species_boxplot_coloured_species",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a boxplot with species on the x-axis and bill_length_mm on the y-axis, with the fill of each box coloured by species. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = species, y = bill_length_mm, fill = species)) + geom_boxplot()"
+    },
+    {
+        "id": "bill-length_bill-depth_scatter_species_smooth",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a scatter plot with bill_length_mm on the x-axis and bill_depth_mm on the y-axis with points coloured by species, and add a linear model smoothing line per species (also coloured by species) without a confidence interval ribbon. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, colour = species)) + geom_point() + geom_smooth(method = \"lm\", se = FALSE)"
+    },
+    {
+        "id": "flipper-length_density_fill_species",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct an overlapping density plot of flipper_length_mm filled by species, with an alpha of 0.4. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = flipper_length_mm, fill = species)) + geom_density(alpha = 0.4)"
+    },
+    {
+        "id": "species_bar_count",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a bar chart showing the count of penguins for each species, with bars filled by species. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = species, fill = species)) + geom_bar()"
+    },
+    {
+        "id": "species_island_bar_dodged",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a dodged bar chart with island on the x-axis, bar counts on the y-axis, and bars filled and dodged by species. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = island, fill = species)) + geom_bar(position = \"dodge\")"
+    },
+    {
+        "id": "bill-length_bill-depth_scatter_facet_species",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a scatter plot with bill_length_mm on the x-axis and bill_depth_mm on the y-axis, faceted into separate panels by species (one row, three columns). Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) + geom_point() + facet_wrap(~ species)"
+    },
+    {
+        "id": "body-mass_flipper-length_scatter_facet_species_sex",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a scatter plot with flipper_length_mm on the x-axis and body_mass_g on the y-axis, faceted in a grid with species as rows and sex as columns. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) + geom_point() + facet_grid(species ~ sex)"
+    },
+    {
+        "id": "bill-length_species_violin_jitter_overlay",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a violin plot with species on the x-axis and bill_length_mm on the y-axis, filled by species, with a jitter layer overlaid on top of the violins. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = species, y = bill_length_mm, fill = species)) + geom_violin() + geom_jitter()"
+    },
+    {
+        "id": "bill-length_species_boxplot_labs",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a boxplot with species on the x-axis and bill_length_mm on the y-axis. Set the plot title to \"Bill Length by Species\", the x-axis label to \"Species\", and the y-axis label to \"Bill Length (mm)\". Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = species, y = bill_length_mm)) + geom_boxplot() + labs(title = \"Bill Length by Species\", x = \"Species\", y = \"Bill Length (mm)\")"
+    },
+    {
+        "id": "flipper-length_body-mass_scatter_theme_minimal",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a scatter plot with flipper_length_mm on the x-axis and body_mass_g on the y-axis, coloured by species, using theme_minimal(). Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g, colour = species)) + geom_point() + theme_minimal()"
+    },
+    {
+        "id": "bill-length_bill-depth_scatter_scale_colour_manual",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a scatter plot with bill_length_mm on the x-axis and bill_depth_mm on the y-axis, coloured by species. Manually set the colours so that Adelie is \"#E69F00\", Chinstrap is \"#56B4E9\", and Gentoo is \"#009E73\". Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, colour = species)) + geom_point() + scale_colour_manual(values = c(Adelie = \"#E69F00\", Chinstrap = \"#56B4E9\", Gentoo = \"#009E73\"))"
+    },
+    {
+        "id": "body-mass_flipper-length_scatter_log_scale",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a scatter plot with flipper_length_mm on the x-axis and body_mass_g on the y-axis, coloured by species. Apply a log10 transformation to the y-axis. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g, colour = species)) + geom_point() + scale_y_log10()"
+    },
+    {
+        "id": "bill-length_species_boxplot_coord_flip",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a horizontal boxplot with species on the y-axis and bill_length_mm on the x-axis by first mapping species to x and bill_length_mm to y, then flipping the coordinates with coord_flip(). Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = species, y = bill_length_mm)) + geom_boxplot() + coord_flip()"
+    },
+    {
+        "id": "bill-length_species_mean_bar_stat_summary",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a bar chart showing the mean bill_length_mm for each species using stat_summary() with fun = mean and geom = \"bar\". Fill the bars by species. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = species, y = bill_length_mm, fill = species)) + stat_summary(fun = mean, geom = \"bar\")"
+    },
+    {
+        "id": "bill-length_species_mean_bar_errorbar",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a bar chart of mean bill_length_mm per species using stat_summary() with fun = mean and geom = \"bar\", filled by species. Add a second stat_summary() layer using fun.data = mean_se and geom = \"errorbar\" with width = 0.2. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = species, y = bill_length_mm, fill = species)) + stat_summary(fun = mean, geom = \"bar\") + stat_summary(fun.data = mean_se, geom = \"errorbar\", width = 0.2)"
+    },
+    {
+        "id": "bill-length_bill-depth_scatter_2d_density",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a plot with bill_length_mm on the x-axis and bill_depth_mm on the y-axis that shows a 2D density contour layer (geom_density_2d) coloured by species, with a point layer also coloured by species and set to alpha = 0.3. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, colour = species)) + geom_point(alpha = 0.3) + geom_density_2d()"
+    },
+    {
+        "id": "body-mass_species_boxplot_facet_island_theme_labs",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a boxplot with species on the x-axis and body_mass_g on the y-axis, filled by species. Facet the plot by island using facet_wrap(). Apply theme_classic(). Add a title of \"Body Mass by Species and Island\", x label \"Species\", and y label \"Body Mass (g)\". Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = species, y = body_mass_g, fill = species)) + geom_boxplot() + facet_wrap(~ island) + theme_classic() + labs(title = \"Body Mass by Species and Island\", x = \"Species\", y = \"Body Mass (g)\")"
+    },
+    {
+        "id": "flipper-length_body-mass_scatter_smooth_facet_sex_legend_off",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a scatter plot of flipper_length_mm (x) vs body_mass_g (y) with points and a linear model smooth line (no confidence interval), both coloured by species. Facet by sex. Use theme_minimal() and remove the legend entirely using theme(). Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g, colour = species)) + geom_point() + geom_smooth(method = \"lm\", se = FALSE) + facet_wrap(~ sex) + theme_minimal() + theme(legend.position = \"none\")"
+    },
+    {
+        "id": "bill-length_bill-depth_scatter_stat_manual_convex_hull",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a scatter plot with bill_length_mm on the x-axis and bill_depth_mm on the y-axis, with points coloured by species. Add a stat_manual() layer that draws a convex hull polygon around each species group using geom = \"polygon\" and fun = function(data) data[chull(data$x, data$y), ], with fill = NA so only the outline is shown, also coloured by species. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, colour = species)) + geom_point() + stat_manual(geom = \"polygon\", fun = function(data) data[chull(data$x, data$y), ], fill = NA)"
+    },
+    {
+        "id": "flipper-length_body-mass_scatter_stat_manual_centroid",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a scatter plot with flipper_length_mm on the x-axis and body_mass_g on the y-axis, with points coloured by species and alpha = 0.4. Add a stat_manual() layer that plots the per-species centroid as a large filled point (size = 6, shape = 21) using fun = function(data) data.frame(x = mean(data$x, na.rm = TRUE), y = mean(data$y, na.rm = TRUE)) and geom = \"point\", also coloured by species. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g, colour = species)) + geom_point(alpha = 0.4) + stat_manual(geom = \"point\", fun = function(data) data.frame(x = mean(data$x, na.rm = TRUE), y = mean(data$y, na.rm = TRUE)), size = 6, shape = 21)"
+    },
+    {
+        "id": "bill-length_bill-depth_scatter_stat_manual_segment_to_centroid",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a scatter plot with bill_length_mm on the x-axis and bill_depth_mm on the y-axis, with points coloured by species and alpha = 0.4. Add a stat_manual() layer with geom = \"segment\" that connects each point to its per-species centroid, using fun = function(data) transform(data, xend = mean(data$x, na.rm = TRUE), yend = mean(data$y, na.rm = TRUE)), also coloured by species. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, colour = species)) + geom_point(alpha = 0.4) + stat_manual(geom = \"segment\", fun = function(data) transform(data, xend = mean(data$x, na.rm = TRUE), yend = mean(data$y, na.rm = TRUE)))"
+    },
+    {
+        "id": "species_island_bar_stacked_scale_fill_manual",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a stacked bar chart with island on the x-axis and bars filled by species (stacked is the default position). Manually set the fill colours so that Adelie is \"#FF6B6B\", Chinstrap is \"#4ECDC4\", and Gentoo is \"#45B7D1\" using scale_fill_manual(). Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = island, fill = species)) + geom_bar() + scale_fill_manual(values = c(Adelie = \"#FF6B6B\", Chinstrap = \"#4ECDC4\", Gentoo = \"#45B7D1\"))"
+    },
+    {
+        "id": "bill-length_bill-depth_scatter_position_nudge_text",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. A summary dataframe named `species_means` has already been created for you with three columns: species, mean_bill_length, and mean_bill_depth (the per-species means of bill_length_mm and bill_depth_mm respectively). Construct a scatter plot of mean_bill_length (x) vs mean_bill_depth (y) using `species_means`, with points coloured by species. Add a geom_text() layer that labels each point with the species name, also coloured by species, nudged 0.8 units to the right using position_nudge(). Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(species_means, aes(x = mean_bill_length, y = mean_bill_depth, colour = species)) + geom_point() + geom_text(aes(label = species), position = position_nudge(x = 0.8))"
+    },
+    {
+        "id": "flipper-length_body-mass_scatter_position_nudge_label",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. A summary dataframe named `island_means` has already been created for you with three columns: island, mean_flipper, and mean_mass (the per-island means of flipper_length_mm and body_mass_g respectively). Construct a scatter plot of mean_flipper (x) vs mean_mass (y) using `island_means`, with points sized to 4. Add a geom_label() layer that labels each point with the island name, nudged 1 unit upward using position_nudge(). Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(island_means, aes(x = mean_flipper, y = mean_mass)) + geom_point(size = 4) + geom_label(aes(label = island), position = position_nudge(y = 1))"
+    },
+    {
+        "id": "bill-length_bill-depth_scatter_annotate_rect",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a scatter plot with bill_length_mm on the x-axis and bill_depth_mm on the y-axis, with points coloured by species. Add an annotate() layer that draws a semi-transparent rectangle (geom = \"rect\") with xmin = 40, xmax = 50, ymin = 15, ymax = 19, filled with colour \"yellow\" and alpha = 0.3. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, colour = species)) + geom_point() + annotate(\"rect\", xmin = 40, xmax = 50, ymin = 15, ymax = 19, fill = \"yellow\", alpha = 0.3)"
+    },
+    {
+        "id": "bill-length_bill-depth_scatter_annotate_text",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a scatter plot with bill_length_mm on the x-axis and bill_depth_mm on the y-axis, coloured by species. Add an annotate() layer that places the text \"Overlap region\" at x = 45, y = 17 in size 4 font and colour \"darkred\". Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, colour = species)) + geom_point() + annotate(\"text\", x = 45, y = 17, label = \"Overlap region\", size = 4, colour = \"darkred\")"
+    },
+    {
+        "id": "bill-length_bill-depth_scatter_annotate_segment",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a scatter plot with bill_length_mm on the x-axis and bill_depth_mm on the y-axis, coloured by species. Add an annotate() layer that draws an arrow segment from x = 50, y = 20 to xend = 47, yend = 18, with colour \"black\", and arrow = arrow(length = unit(0.3, \"cm\")). Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, colour = species)) + geom_point() + annotate(\"segment\", x = 50, xend = 47, y = 20, yend = 18, colour = \"black\", arrow = arrow(length = unit(0.3, \"cm\")))"
+    },
+    {
+        "id": "species_count_pie_coord_polar",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a pie chart of species counts by starting with a stacked bar chart (geom_bar(), x = \"\", fill = species), then transforming it to polar coordinates using coord_polar() with theta = \"y\". Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = \"\", fill = species)) + geom_bar() + coord_polar(theta = \"y\")"
+    },
+    {
+        "id": "species_count_pie_coord_polar_scale_fill_manual",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a pie chart of species counts by starting with a stacked bar chart (geom_bar(), x = \"\", fill = species), then transforming it to polar coordinates using coord_polar() with theta = \"y\". Manually set the fill colours so that Adelie is \"#E69F00\", Chinstrap is \"#56B4E9\", and Gentoo is \"#009E73\". Apply theme_void(). Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = \"\", fill = species)) + geom_bar() + coord_polar(theta = \"y\") + scale_fill_manual(values = c(Adelie = \"#E69F00\", Chinstrap = \"#56B4E9\", Gentoo = \"#009E73\")) + theme_void()"
+    },
+    {
+        "id": "bill-length_species_boxplot_font_size_axis",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a boxplot with species on the x-axis and bill_length_mm on the y-axis. Using theme(), set the axis text size to 14 and the axis title size to 16. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = species, y = bill_length_mm)) + geom_boxplot() + theme(axis.text = element_text(size = 14), axis.title = element_text(size = 16))"
+    },
+    {
+        "id": "flipper-length_body-mass_scatter_font_size_title_legend",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a scatter plot with flipper_length_mm on the x-axis and body_mass_g on the y-axis, coloured by species. Add the title \"Flipper Length vs Body Mass\". Using theme(), set the plot title font size to 18 and the legend title font size to 12. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g, colour = species)) + geom_point() + labs(title = \"Flipper Length vs Body Mass\") + theme(plot.title = element_text(size = 18), legend.title = element_text(size = 12))"
+    },
+    {
+        "id": "bill-length_species_mean_bar_stat_identity_nudge_label_scale_fill_manual",
+        "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. A summary dataframe named `mean_bill` has already been created for you with two columns: species and mean_bill_length (the mean bill_length_mm per species). Using `mean_bill`, construct a bar chart with species on the x-axis and mean_bill_length on the y-axis using geom_bar() with stat = \"identity\", filled by species. Manually set the fill colours so that Adelie is \"#E69F00\", Chinstrap is \"#56B4E9\", and Gentoo is \"#009E73\". Add a geom_text() layer showing the rounded mean_bill_length value (rounded to 1 decimal place) above each bar, nudged 0.5 units upward using position_nudge(). Set the axis title font sizes to 14 using theme(). Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+        "answer": "ggplot(mean_bill, aes(x = species, y = mean_bill_length, fill = species)) + geom_bar(stat = \"identity\") + scale_fill_manual(values = c(Adelie = \"#E69F00\", Chinstrap = \"#56B4E9\", Gentoo = \"#009E73\")) + geom_text(aes(label = round(mean_bill_length, 1)), position = position_nudge(y = 0.5)) + theme(axis.title = element_text(size = 14))"
+    }
+]
