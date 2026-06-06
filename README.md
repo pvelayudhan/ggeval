@@ -5,17 +5,13 @@ It is set up to assess a
 
 ## Evaluation
 
-Evaluation is based on prompts/answer pairs stored in `ggeval/prompt_data.json`.
+Evaluation is based on prompts/answer pairs stored in `data/prompt_data.json`.
 
 An example prompt/answer pair looks like:
 
-```
-"prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a boxplot plot with species on the x-axis and bill_length_mm on the y-axis. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process."
-```
+>"prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a boxplot plot with species on the x-axis and bill_length_mm on the y-axis. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process."
 
-```
-"answer": "ggplot(penguins, aes(x = species, y = bill_length_mm)) + geom_boxplot()"
-```
+>"answer": "ggplot(penguins, aes(x = species, y = bill_length_mm)) + geom_boxplot()"
 
 There are 39 prompt/answer pairs in `ggeval/prompt_data.json` that gradually increase in complexity.
 I wrote the first two and have manually verified the remaining 37 written by Claude Sonnet 4.6.
