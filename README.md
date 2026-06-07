@@ -94,7 +94,7 @@ No need to throw away the extra data, though!
 
 ![mlflow screenshot of results](https://raw.githubusercontent.com/pvelayudhan/ggeval/refs/heads/main/results.png?token=GHSAT0AAAAAADSD2GOKJM4WUP3AI5GKARYS2RGAGLA)
 
-I am indeed aware of the irony of presenting my results with an MLflow screenshot.
+I am aware of the irony of presenting my results with an MLflow screenshot.
 
 Good job, **Phi-4 Mini**, for being tied for 1st among the open models with Qwen3.5 but for being quicker about it.
 Honourable mentions: Command A+ 05-2026, for not getting shown up by a bunch of <= 4B models, and Qwen2.5 1.5B, for doing things the "Max Power" way. 
