@@ -92,7 +92,42 @@ No need to throw away the extra data, though!
 
 ## Results
 
-![mlflow screenshot of results](https://raw.githubusercontent.com/pvelayudhan/ggeval/refs/heads/main/results.png?token=GHSAT0AAAAAADSD2GOLQS7SKC5YJJFLITSA2RF7O5Q)
+![mlflow screenshot of results](https://raw.githubusercontent.com/pvelayudhan/ggeval/refs/heads/main/results.png?token=GHSAT0AAAAAADSD2GOLCPEWSOAWKAQA4RL62RF7QTA)
+
+I am indeed aware of the irony of presenting my results with an MLflow screenshot.
+
+Good job, **Phi-4 Mini**, for being tied for 1st among the open models with Qwen3.5 but for being quicker about it.
+Honourable mentions: Command A+ 05-2026, for not getting shown up by a bunch of <= 4B models, and Qwen2.5 1.5B, for doing things the "Max Power" way. 
+
+I won't go through the process of exploring every single mistake.
+All the models did well but none were perfect, which I consider decent evidence of the evaluation pipeline's success.
+I will mention that the hardest prompt was "flipper-length_body-mass_scatter_stat_manual_centroid":
+
+> "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a scatter plot with flipper_length_mm on the x-axis and body_mass_g on the y-axis, with points coloured by species and alpha = 0.4. Add a stat_manual() layer that plots the per-species centroid as a large filled point (size = 6, shape = 21) using fun = function(data) data.frame(x = mean(data$x, na.rm = TRUE), y = mean(data$y, na.rm = TRUE)) and geom = \"point\", also coloured by species. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
+    
+The correct answer was:
+
+> "answer": "ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g, colour = species)) + geom_point(alpha = 0.4) + stat_manual(geom = \"point\", fun = function(data) data.frame(x = mean(data$x, na.rm = TRUE), y = mean(data$y, na.rm = TRUE)), size = 6, shape = 21)"
+
+The two Qwen models were the only ones to succeed!
+Command A+'s answer:
+
+```R 
+set.seed(42)
+ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g, colour = species)) +
+geom_point(alpha = 0.4) +
+stat_manual(
+    fun = function(data) data.frame(
+        x = mean(data$x, na.rm = TRUE),
+        y = mean(data$y, na.rm = TRUE),
+        species = unique(data$species)[1]
+    ),
+    geom = "point",
+    aes(size = 6, shape = 21, colour = species, fill = species)
+)
+```
+
+Looks great; doesn't run.
 
 ## Limitations
 
