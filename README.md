@@ -10,12 +10,16 @@ It is currently set up to evaluate 7 open-source and 2 closed-source models.
 
 The evaluation pipeline will:
 
-- Provide a prompt to generate ggplot2 code from the ggeval dataset (https://huggingface.co/datasets/pvelayudhan/ggeval)
+- Provide a prompt to generate ggplot2 code from the ggeval dataset [(available on huggingface)](https://huggingface.co/datasets/pvelayudhan/ggeval)
 - Export generated R code written by the evaluated model to `scripts/`
 - Safely execute that R code in a Podman container
 - Evaluate an exact match score of the generated plot's structure against the prompt's associated reference answer
 - Export the reference answer plot and (if possible) the LLM-generated plot to `figures/`
 - Log per-prompt accuracy, overall accuracy across all prompts, and average latency for response generation across all prompts with MLflow
+
+## Requirements
+
+Apart from the things in requirements.txt, this pipeline uses [Podman](https://podman.io/).
 
 ## Evaluation
 
