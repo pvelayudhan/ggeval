@@ -1,5 +1,6 @@
-from .model_runner import ModelRunner
 from .evaluator import Evaluator
+from .model_runner import ModelRunner
+from datetime import datetime
 import mlflow
 
 
@@ -14,7 +15,8 @@ class Benchmarker:
         n_evals = len(self.models) * len(self.prompt_data)
         evals = 1
 
-        with mlflow.start_run(run_name="benchmark") as parent:
+        run_name = datetime.now().strftime("benchmark_%Y_%m_%d_%H_%M_%S")
+        with mlflow.start_run(run_name=run_name) as parent:
             for short_name in self.models:
                 print(f"Loading {short_name}...")
                 model = ModelRunner(self.models[short_name])

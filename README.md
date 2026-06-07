@@ -1,7 +1,17 @@
 # ggeval: A ggplot2 evaluation pipeline
 
+## Overview
+
 This repo contains an LLM evaluation/benchmarking pipeline for plot generation with the R package ggplot2.
-It is set up to assess a
+It is currently set up to support 7 open-source and 2 closed-source model providers.
+The evaluation pipeline will:
+
++ Provide a prompt to generate ggplot2 code from the ggeval dataset (https://huggingface.co/datasets/pvelayudhan/ggeval)
++ Export generated R code written by the evaluated model to `scripts/`
++ Safely execute that R code in a Podman container
++ Evaluate exact match of the generated plot's structure with the prompt's associated reference answer
++ Export the reference answer plot and (if possible) the LLM-generated plot to `figures/`
++ Log per-prompt accuracy, overall accuracy across all prompts, and average latency for response generation across all prompts with MLflow
 
 ## Evaluation
 
@@ -18,7 +28,7 @@ I wrote the first two and have manually verified the remaining 37 written by Cla
 
 ## Structure
 
-The pipeline relies on three classes:
+The pipeline relies uses three classes:
 
 1. `ModelRunner`
     - loads models
@@ -32,7 +42,7 @@ The pipeline relies on three classes:
 
 Models were selected based on information from the LLM Stats Open LLM Leaderboard: https://llm-stats.com/leaderboards/open-llm-leaderboard collected on May 26th, 2026.
 
-Only open-source models capable of running on the smallest LLM stats hardware tier (<= 4B, "Phone SoC") were considered.
+Only open-source models capable of running on the website's smallest LLM stats hardware tier (<= 4B, "Phone SoC") were considered.
 For each provider, only the model meeting these criteria with the highest LLM Stats Reasoning Index (https://llm-stats.com/leaderboards/best-ai-for-reasoning) was included.
 
 - Qwen3.5-4B
@@ -42,4 +52,26 @@ For each provider, only the model meeting these criteria with the highest LLM St
 - Gemma 3 4B
 - Llama 3.2 3B Instruct
 
+    "ministral": "mistralai/Ministral-3-3B-Reasoning-2512",
+    "phi4mini": "microsoft/Phi-4-mini-reasoning",
+    "r1distill": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+    "gemma": "google/gemma-3-4b-it",
+    "llama": "meta-llama/Llama-3.2-3B-Instruct",
+    "granite": "ibm-granite/granite-3.3-2b-instruct",
+    "qwen": "Qwen/Qwen2.5-1.5B-Instruct"
+
+
+
+    #"command-a-plus": "command-a-plus-05-2026",
+    #"gemini": "gemini-3.5-flash",
+
 I also included IBM's Granite-3.3-2B-Instruct, which is another small model appearing in many of my searches but seems to have not yet been added to the LLM Stats Open LLM Leaderboard.
+
+
+## Some obvious limitations / areas to improve
+
++ Mixing model types and thinking handling: To prevent thinking output from interfering with code execution, thinking is suppressed by instructions within the prompts, with `enable_thinking=False` in the `tokenizer.apply_chat_template()` call, and with regex-based a post-processing. The mixture of approaches and types of models included can make the final comparisons unfair. Some models may perform better when thinking is not suppressed in the `apply_chat_template()` call. Some models may burn too many tokens on their thinking blocks to achieve the final task in within the specified token limit (512 in this project). 
++ Error handling: Timeout / quota-exceeded errors for LLMs accessed by API are not handled well. The primary purpose of the pipeline is to evaluate small local language models that can run on light hardware, so handling things like quota errors was not a top priority.
++ Hard-coding during model loading: The `ModelRunner` class responsible for loading models by name looks a little gross in terms of the if-statements needed to get everything working.
++ Evaluation approach: Models receive a point if they exactly replicate the reference answer and no points if they do not. It might make more sense to provide partial marks for partially correct answers.
++ ggplot2 coverage: There are many areas of ggplot2 that are not tested in the associated prompt/answer dataset

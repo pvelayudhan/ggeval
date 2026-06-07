@@ -8,37 +8,24 @@ import cohere
 from google import genai
 from google.genai import types
 
-MODEL_CONFIGS = {
-    "mistralai/Ministral-3-3B-Reasoning-2512": {
-        "model_class": "Mistral3ForConditionalGeneration",
-        "tokenizer_class": "MistralCommonBackend",
-    }
-}
-
 
 class ModelRunner:
     def __init__(self, model_name):
         self.model_name = model_name
-        config = MODEL_CONFIGS.get(model_name, {})
         print(f"Loading model: {model_name}")
 
-        if self.model_name.startswith("command-a-plus"):
-            pass
-        elif self.model_name.startswith("gemini"):
+        if self.model_name.startswith(("command-a-plus", "gemini")):
             pass
         else:
-            if config.get("tokenizer_class") == "MistralCommonBackend":
+            if self.model_name.startswith("mistral"):
                 self.tokenizer = MistralCommonBackend.from_pretrained(
-                    model_name
+                    self.model_name
                 )
-            else:
-                self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-
-            if config.get("model_class") == "Mistral3ForConditionalGeneration":
                 self.model = Mistral3ForConditionalGeneration.from_pretrained(
                     model_name, dtype="auto"
                 )
             else:
+                self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
                 self.model = AutoModelForCausalLM.from_pretrained(
                     model_name, dtype="auto"
                 )
@@ -48,6 +35,14 @@ class ModelRunner:
 
     def _strip_fences(self, text):
         return re.sub(r"```[rR]?", "", text).strip()
+
+    def _strip_code(self, text):
+        return re.sub(r"</?code>", "", text)
+
+    def _parse_text(self, text):
+        text = self._strip_thinking(text)
+        text = self._strip_fences(text)
+        return text
 
     def generate(self, prompt, max_new_tokens=512):
         messages = [{"role": "user", "content": prompt}]
@@ -85,6 +80,7 @@ class ModelRunner:
                 tokenize=True,
                 add_generation_prompt=True,
                 return_tensors="pt",
+                enable_thinking=False,
             )
             start = time.time()
             with torch.inference_mode():
@@ -97,8 +93,7 @@ class ModelRunner:
                 new_tokens, skip_special_tokens=True
             )
 
-        response_parsed = self._strip_thinking(response_raw)
-        response_parsed = self._strip_fences(response_parsed)
+        response_parsed = self._parse_text(response_raw)
 
         return {
             "response_raw": response_raw,
