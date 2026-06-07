@@ -4,13 +4,13 @@
             built_answer <- tryCatch(
                 {
                     set.seed(42)
-                    ggplot(penguins, aes(x = species, y = bill_length_mm)) + geom_boxplot()
+                    ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, colour = species)) + geom_point() + annotate("segment", x = 50, xend = 47, y = 20, yend = 18, colour = "black", arrow = arrow(length = unit(0.3, "cm")))
                     suppressWarnings(
-                        if (!file.exists("/sandbox/figures/bill-length_species_boxplot_answer.png")) {
+                        if (!file.exists("/sandbox/figures/bill-length_bill-depth_scatter_annotate_segment_answer.png")) {
                             ggsave(
                                 width = 3,
                                 height = 3,
-                                "/sandbox/figures/bill-length_species_boxplot_answer.png"
+                                "/sandbox/figures/bill-length_bill-depth_scatter_annotate_segment_answer.png"
                             )
                         }
                     )
@@ -25,13 +25,14 @@
             built_submission <- tryCatch(
                 {
                     set.seed(42)
-                    ggplot(data = penguins, aes(x = species, y = bill_length_mm)) +
-  geom_boxplot()
+                    ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
+  geom_point() +
+  annotate("arrow", x = 50, y = 20, xend = 47, yend = 18, color = "black", arrow = arrow(length = unit(0.3, "cm")))
                     suppressWarnings(
                         ggsave(
                             width = 3,
                             height = 3,
-                            "figures/bill-length_species_boxplot_qwen_submission.png"
+                            "figures/bill-length_bill-depth_scatter_annotate_segment_submission_llama.png"
                         )
                     )
                     suppressWarnings(

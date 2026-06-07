@@ -1,0 +1,53 @@
+
+            library(ggplot2)
+            library(palmerpenguins)
+            built_answer <- tryCatch(
+                {
+                    set.seed(42)
+                    ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g, colour = species)) + geom_point() + labs(title = "Flipper Length vs Body Mass") + theme(plot.title = element_text(size = 18), legend.title = element_text(size = 12))
+                    suppressWarnings(
+                        if (!file.exists("/sandbox/figures/flipper-length_body-mass_scatter_font_size_title_legend_answer.png")) {
+                            ggsave(
+                                width = 3,
+                                height = 3,
+                                "/sandbox/figures/flipper-length_body-mass_scatter_font_size_title_legend_answer.png"
+                            )
+                        }
+                    )
+                    suppressWarnings(
+                        ggplot_build(last_plot())
+                    )
+                },
+                error = function(e) {
+                    'ERROR'
+                }
+            )
+            built_submission <- tryCatch(
+                {
+                    set.seed(42)
+                    library(ggplot2)
+
+ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
+  geom_point() +
+  labs(title = "Flipper Length vs Body Mass",
+       x = "Flipper Length (mm)",
+       y = "Body Mass (g)") +
+  theme(plot.title = element_text(size = 18),
+        legend.title = element_text(size = 12))
+                    suppressWarnings(
+                        ggsave(
+                            width = 3,
+                            height = 3,
+                            "figures/flipper-length_body-mass_scatter_font_size_title_legend_submission_gemma.png"
+                        )
+                    )
+                    suppressWarnings(
+                        ggplot_build(last_plot())
+                    )
+                },
+                error = function(e) {
+                    'ERROR'
+                }
+            )
+            cat(isTRUE(all.equal(built_answer, built_submission)))
+        

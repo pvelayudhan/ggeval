@@ -4,13 +4,13 @@
             built_answer <- tryCatch(
                 {
                     set.seed(42)
-                    ggplot(penguins, aes(x = species, y = bill_depth_mm)) + geom_jitter()
+                    ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g, colour = species)) + geom_point() + labs(title = "Flipper Length vs Body Mass") + theme(plot.title = element_text(size = 18), legend.title = element_text(size = 12))
                     suppressWarnings(
-                        if (!file.exists("/sandbox/figures/bill-depth_species_jitter_answer.png")) {
+                        if (!file.exists("/sandbox/figures/flipper-length_body-mass_scatter_font_size_title_legend_answer.png")) {
                             ggsave(
                                 width = 3,
                                 height = 3,
-                                "/sandbox/figures/bill-depth_species_jitter_answer.png"
+                                "/sandbox/figures/flipper-length_body-mass_scatter_font_size_title_legend_answer.png"
                             )
                         }
                     )
@@ -25,13 +25,18 @@
             built_submission <- tryCatch(
                 {
                     set.seed(42)
-                    ggplot(data = penguins, aes(x = species, y = bill_depth_mm)) +
-  geom_jitter(width = 0.1)
+                    ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
+
+  geom_point() +
+
+  labs(title = "Flipper Length vs Body Mass") +
+
+  theme(plot.title = element_text(size = 18), legend.title = element_text(size = 12))
                     suppressWarnings(
                         ggsave(
                             width = 3,
                             height = 3,
-                            "figures/bill-depth_species_jitter_qwen_submission.png"
+                            "figures/flipper-length_body-mass_scatter_font_size_title_legend_submission_phi4mini.png"
                         )
                     )
                     suppressWarnings(
