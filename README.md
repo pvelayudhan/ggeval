@@ -89,7 +89,7 @@ No need to throw away the extra data, though!
 ## Results
 
 
-## Limitations / areas to improve
+## Limitations
 
 - Evaluation order effects on latency: All prompts were processed for each model before moving on to the next model, meaning time effects were not controlled for during the evaluation. It is possible some model had unfairly high or low latencies due to how warmed up / cooked my laptop was when it was that model's turn for evaluation. Shuffling model-prompt evaluation orders could remedy this.
 - Temperature fixed at 0: maybe results would be different by giving models their provided-recommended default temperatures
