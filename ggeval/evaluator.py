@@ -68,32 +68,42 @@ class Evaluator:
 
     def run_eval_script(self):
         print("Running evaluation...")
-        result = subprocess.run(
-            [
-                "podman",
-                "run",
-                "--rm",  # remove container upon exit
-                "--network",
-                "none",  # don't enable network connectivity
-                "--memory",
-                "512m",
-                "--cpus",
-                "1",
-                "--read-only",
-                "--tmpfs",
-                "/tmp",
-                "--tmpfs",
-                "/root/.cache",  # for font cache during ggplot creation
-                "--volume",
-                f"{os.path.abspath('scripts')}:/sandbox/scripts:ro",
-                "--volume",
-                f"{os.path.abspath('figures')}:/sandbox/figures:rw",
-                "localhost/r-eval",  # image name
-                "Rscript",
-                f"/sandbox/scripts/{os.path.basename(self.script_name)}",
-            ],
-            capture_output=True,
-            text=True,
-            timeout=30,
-        )
-        return result.stdout == "TRUE"
+        try:
+            result = subprocess.run(
+                [
+                    "podman",
+                    "run",
+                    "--rm",  # remove container upon exit
+                    "--network",
+                    "none",  # don't enable network connectivity
+                    "--memory",
+                    "512m",
+                    "--cpus",
+                    "1",
+                    "--read-only",
+                    "--tmpfs",
+                    "/tmp",
+                    "--tmpfs",
+                    "/root/.cache",  # for font cache during ggplot creation
+                    "--volume",
+                    f"{os.path.abspath('scripts')}:/sandbox/scripts:ro",
+                    "--volume",
+                    f"{os.path.abspath('figures')}:/sandbox/figures:rw",
+                    "localhost/r-eval",  # image name
+                    "Rscript",
+                    f"/sandbox/scripts/{os.path.basename(self.script_name)}",
+                ],
+                capture_output=True,
+                text=True,
+                timeout=30,
+            )
+            return result.stdout == "TRUE"
+        except (
+            subprocess.TimeoutExpired,
+            subprocess.CalledProcessError,
+            FileNotFoundError,
+        ) as e:
+            print(
+                f"Eval {self.prompt_id} failed for ({self.model_name}): {e}"
+            )
+            return False
