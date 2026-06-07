@@ -10,24 +10,30 @@ from google.genai import types
 
 
 class ModelRunner:
-    def __init__(self, model_name):
+    def __init__(self, model_name, device_map="cpu"):
         self.model_name = model_name
         print(f"Loading model: {model_name}")
 
-        if self.model_name.startswith(("command-a-plus", "gemini")):
-            pass
+        if self.model_name.startswith("command-a-plus"):
+            self.client = cohere.ClientV2
+        elif self.model_name.startswith("gemini"):
+            self.client = genai.Client()
         else:
             if self.model_name.startswith("mistral"):
                 self.tokenizer = MistralCommonBackend.from_pretrained(
                     self.model_name
                 )
                 self.model = Mistral3ForConditionalGeneration.from_pretrained(
-                    model_name, dtype="auto"
+                    self.model_name,
+                    dtype="auto",
+                    device_map=device_map
                 )
             else:
                 self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
                 self.model = AutoModelForCausalLM.from_pretrained(
-                    model_name, dtype="auto"
+                    self.model_name,
+                    dtype="auto",
+                    device_map=device_map
                 )
 
     def _strip_thinking(self, text):
@@ -48,8 +54,10 @@ class ModelRunner:
         messages = [{"role": "user", "content": prompt}]
 
         if self.model_name.startswith("command-a-plus"):
-            co = cohere.ClientV2()
-            response = co.chat(model=self.model_name, messages=messages)
+            response = self.client.chat(
+                model=self.model_name,
+                messages=messages
+            )
             response_raw = next(
                 (
                     block.text
@@ -61,8 +69,7 @@ class ModelRunner:
             latency = 0
             time.sleep(10)  # sleep for API model
         elif self.model_name.startswith("gemini"):
-            client = genai.Client()
-            response_raw = client.models.generate_content(
+            response_raw = self.client.models.generate_content(
                 model=self.model_name,
                 contents=[
                     types.Content(
@@ -83,6 +90,7 @@ class ModelRunner:
                 enable_thinking=False,
             )
             start = time.time()
+            inputs = inputs.to(self.model.device)
             with torch.inference_mode():
                 outputs = self.model.generate(
                     **inputs, max_new_tokens=max_new_tokens, do_sample=False

@@ -5,10 +5,17 @@ import mlflow
 
 
 class Benchmarker:
-    def __init__(self, models, prompt_data, experiment_name="benchmark"):
+    def __init__(
+        self,
+        models,
+        prompt_data,
+        experiment_name="benchmark",
+        device_map="cpu",
+    ):
         self.models = models
         self.prompt_data = prompt_data
         self.experiment_name = experiment_name
+        self.device_map = device_map
 
     def benchmark(self):
         mlflow.set_experiment(self.experiment_name)
@@ -19,7 +26,7 @@ class Benchmarker:
         with mlflow.start_run(run_name=run_name) as parent:
             for short_name in self.models:
                 print(f"Loading {short_name}...")
-                model = ModelRunner(self.models[short_name])
+                model = ModelRunner(self.models[short_name], self.device_map)
 
                 with mlflow.start_run(run_name=short_name, nested=True):
                     mlflow.log_param("model_name", short_name)
