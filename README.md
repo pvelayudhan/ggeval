@@ -92,6 +92,7 @@ No need to throw away the extra data, though!
 
 ## Results
 
+![mlflow screenshot of results](https://raw.githubusercontent.com/pvelayudhan/ggeval/refs/heads/main/results.png?token=GHSAT0AAAAAADSD2GOLQS7SKC5YJJFLITSA2RF7O5Q)
 
 ## Limitations
 
