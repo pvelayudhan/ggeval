@@ -107,13 +107,24 @@ I will mention that the hardest prompt was "flipper-length_body-mass_scatter_sta
     
 The correct answer was:
 
-> "answer": "ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g, colour = species)) + geom_point(alpha = 0.4) + stat_manual(geom = \"point\", fun = function(data) data.frame(x = mean(data$x, na.rm = TRUE), y = mean(data$y, na.rm = TRUE)), size = 6, shape = 21)"
+```R
+ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g, colour = species)) +
+    geom_point(alpha = 0.4) +
+    stat_manual(
+        geom = "point",
+        fun = function(data) data.frame(
+            x = mean(data$x, na.rm = TRUE),
+            y = mean(data$y, na.rm = TRUE)
+        ),
+        size = 6,
+        shape = 21
+    )
+```
 
 The two Qwen models were the only ones to succeed!
 Command A+'s answer:
 
 ```R 
-set.seed(42)
 ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g, colour = species)) +
 geom_point(alpha = 0.4) +
 stat_manual(
@@ -127,7 +138,7 @@ stat_manual(
 )
 ```
 
-Looks great; doesn't run.
+Close!
 
 ## Limitations
 
