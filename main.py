@@ -16,5 +16,11 @@ models = {
     "gemini": "gemini-3.5-flash"
 }
 
-benchmarker = Benchmarker(models, prompt_data)
+benchmarker = Benchmarker(
+    models,
+    prompt_data,
+    experiment_name="benchmark",
+    device_map="cpu"
+)
+
 benchmarker.benchmark()
