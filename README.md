@@ -92,7 +92,7 @@ No need to throw away the extra data, though!
 
 ## Results
 
-![mlflow screenshot of results](https://raw.githubusercontent.com/pvelayudhan/ggeval/refs/heads/main/results.png?token=GHSAT0AAAAAADSD2GOKJM4WUP3AI5GKARYS2RGAGLA)
+![mlflow screenshot of results](https://raw.githubusercontent.com/pvelayudhan/ggeval/refs/heads/main/results.png)
 
 I am aware of the irony of presenting my results with an MLflow screenshot.
 
