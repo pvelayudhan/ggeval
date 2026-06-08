@@ -32,7 +32,7 @@ An example prompt/answer pair looks like:
 >"answer": "ggplot(penguins, aes(x = species, y = bill_length_mm)) + geom_boxplot()"
 
 There are 39 prompt/answer pairs in `ggeval/prompt_data.json` that gradually increase in complexity.
-I wrote the first two and have manually verified the remaining 37 written by Claude Sonnet 4.6.
+The first 2 pairs were human-written and the remaining 37 were written by Claude Sonnet 4.6 and human-verified.
 
 The scoring boils down to the R code:
 
@@ -71,7 +71,7 @@ Instruct versions of models were used when possible.
 - Qwen3.5 4B
 - Qwen2.5 1.5B Instruct\*\*\*
 
-I also threw in a couple of closed models accessible by API to serve as sanity-checking gold standard models.
+A couple of closed models accessible by API were included to serve as sanity-checking gold standard models.
 If they did poorly, it was a good sign that something was wrong with the evaluation process rather than the models.
 Of all the closed model options, these were selected due to their providers offering a free token quota.
 
@@ -81,13 +81,11 @@ Of all the closed model options, these were selected due to their providers offe
 
 \*: Although IBM Granite 3.3 did not appear in the Open LLM Leaderboard, it came up a lot in my googling around of small language models.
 
-\*\*: I included the reasoning version of Ministral because I couldn't get the Instruct version to run on my laptop. This ended up being due to some fancy "FP8 dequantization" bug in `transformers-5.9.0`; upgrading to `transformers-5.10.2` enabled the instruct model to run properly (but I am not presenting its evaluation here).
+\*\*: The Reasoning version of Ministral was included due to technical difficulties running the Instruct version locally. This ended up being due to some fancy "FP8 dequantization" bug in `transformers-5.9.0`; upgrading to `transformers-5.10.2` enabled the instruct model to run properly. The Reasoning version remains the version presented here.
 
-\*\*\*: Qwen2.5 1.5B Instruct was just there as a lightweight placeholder while developing the scripts.
-I forgot to remove it from the list of models during the evaluation.
-No need to throw away the extra data, though!
+\*\*\*: Qwen2.5 1.5B Instruct was included as a lightweight placeholder while developing the scripts, and was accidentally kept in during evaluation.
 
-\*\*\*\*: I ran out of free Gemini tokens before I could complete the evaluation pipeline. 
+\*\*\*\*: The free Gemini token quota ran out before completing the evaluation pipeline. 
 
 
 ## Results
@@ -99,9 +97,8 @@ I am aware of the irony of presenting my results with an MLflow screenshot.
 Good job, **Phi-4 Mini**, for being tied for 1st among the open models with Qwen3.5 but for being quicker about it.
 Honourable mentions: Command A+ 05-2026, for not getting shown up by a bunch of <= 4B models, and Qwen2.5 1.5B, for doing things the "Max Power" way. 
 
-I won't go through the process of exploring every single mistake.
-All the models did well but none were perfect, which I consider decent evidence of the evaluation pipeline's success.
-I will mention that the hardest prompt was "flipper-length_body-mass_scatter_stat_manual_centroid":
+All models did well but none were perfect, which I consider decent evidence of the evaluation pipeline's success.
+The hardest prompt was "flipper-length_body-mass_scatter_stat_manual_centroid":
 
 > "prompt": "The palmerpenguins dataframe can be made available in R by calling `library(palmerpenguins)`. The dataframe is named `penguins`. It has the following factor columns: species, island, sex. It has the following numeric columns: bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year. The palmerpenguins and ggplot2 libraries have been loaded for you. Construct a scatter plot with flipper_length_mm on the x-axis and body_mass_g on the y-axis, with points coloured by species and alpha = 0.4. Add a stat_manual() layer that plots the per-species centroid as a large filled point (size = 6, shape = 21) using fun = function(data) data.frame(x = mean(data$x, na.rm = TRUE), y = mean(data$y, na.rm = TRUE)) and geom = \"point\", also coloured by species. Do not store the plot in a variable. Respond with code only; no explanation. Do not re-iterate your objective or state anything about your reasoning process.",
     
